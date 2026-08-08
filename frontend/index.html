@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sheet">
+        <h1>Cover Letter Generation</h1>
+        <form id="cover-letter-form">
+        <label for="name">Candidate Name</label>
+        <input id="role" data-key="name" type="text">
+        <label for="role">Job Role</label>
+        <input id="role" data-key="role" type="text">
+        <label for="company">Target Company</label>
+        <input id="company" data-key="company" type="text">
+        <label for="skills">Job Skills</label>
+        <textarea id="skills" data-key="skills"></textarea>
+        <div class="mode-toggle">
+            <label>
+                <input type="radio" name="mode" value="template" checked>
+                <span>Template (offline)</span>
+            </label>
+            <label>
+                <input type="radio" name="mode" value="ai">
+                <span>AI-generated</span>
+            </label>
+        </div>
+        <label for="resume">Upload Resume(.pdf) used only in AI mode</label>
+        <input id="resume" type="file" accept=".pdf">
+        <div id="resume-status"></div>
+        <button id="generate-btn" type="submit">Generate Letter</button>
+    </form>
+    <p id="status-line"></p>
+    <div id="output"></div>
+    <button id="copy-btn">Copy to Clipboard</button>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
