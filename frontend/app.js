@@ -48,7 +48,7 @@ resumeInput.addEventListener("change",async()=>{
         });
         if(!res.ok) throw new Error("Server rejected the file");
         const data=await res.json();
-        formData.resumetext=data.text;
+        formData.resumeText=data.text;
         resumeStatus.textContent=`Resume loaded(${data.text.length} characters extracted)`;
     }
     catch(err){
@@ -104,6 +104,7 @@ form.addEventListener("submit",async(e)=>{
 });
 const copyBtn=document.getElementById("copy-btn");
 copyBtn.addEventListener("click",()=>{
+    const text=output.textContent;
     if(!text){
         copyBtn.textContent="Nothing to copy yet";
         setTimeout(()=>(copyBtn.textContent="Copy to clipboard"),1500);

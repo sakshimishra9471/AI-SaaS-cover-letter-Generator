@@ -8,34 +8,74 @@
 </head>
 <body>
     <div class="sheet">
-        <h1>Cover Letter Generation</h1>
-        <form id="cover-letter-form">
-        <label for="name">Candidate Name</label>
-        <input id="role" data-key="name" type="text">
-        <label for="role">Job Role</label>
-        <input id="role" data-key="role" type="text">
-        <label for="company">Target Company</label>
-        <input id="company" data-key="company" type="text">
-        <label for="skills">Job Skills</label>
-        <textarea id="skills" data-key="skills"></textarea>
-        <div class="mode-toggle">
-            <label>
-                <input type="radio" name="mode" value="template" checked>
-                <span>Template (offline)</span>
-            </label>
-            <label>
-                <input type="radio" name="mode" value="ai">
-                <span>AI-generated</span>
-            </label>
+        <div class="letterhead">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4Z"/><path d="M4 4l8 7 8-7"/></svg>
+            <span>AI Cover Letter Studio</span>
         </div>
-        <label for="resume">Upload Resume(.pdf) used only in AI mode</label>
-        <input id="resume" type="file" accept=".pdf">
-        <div id="resume-status"></div>
-        <button id="generate-btn" type="submit">Generate Letter</button>
-    </form>
-    <p id="status-line"></p>
-    <div id="output"></div>
-    <button id="copy-btn">Copy to Clipboard</button>
+        <h1>Cover Letter Generation</h1>
+        <p class="subtitle">Turn a role, a company, and your resume into a tailored, ATS-friendly letter.</p>
+
+        <form id="cover-letter-form">
+            <div class="field-row">
+                <div class="field">
+                    <label for="name">Candidate Name</label>
+                    <input id="name" data-key="name" type="text">
+                </div>
+                <div class="field">
+                    <label for="role">Job Role</label>
+                    <input id="role" data-key="role" type="text">
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="company">Target Company</label>
+                <input id="company" data-key="company" type="text">
+            </div>
+
+            <div class="field">
+                <label for="skills">Job Skills</label>
+                <textarea id="skills" data-key="skills"></textarea>
+            </div>
+
+            <div class="mode-toggle">
+                <label>
+                    <input type="radio" name="mode" value="template" checked>
+                    <span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z"/><path d="M14 3v5h5"/></svg>
+                        Template (offline)
+                    </span>
+                </label>
+                <label>
+                    <input type="radio" name="mode" value="ai">
+                    <span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/></svg>
+                        AI-generated
+                    </span>
+                </label>
+            </div>
+
+            <div class="field upload-field">
+                <label for="resume">Upload Resume (.pdf) — used only in AI mode</label>
+                <input id="resume" type="file" accept=".pdf">
+                <div id="resume-status"></div>
+            </div>
+
+            <button id="generate-btn" type="submit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7Z"/></svg>
+                Generate Letter
+            </button>
+        </form>
+
+        <p id="status-line"></p>
+
+        <div class="output-block">
+            <div class="output-label">Your Cover Letter</div>
+            <div id="output"></div>
+        </div>
+
+        <button id="copy-btn">Copy to Clipboard</button>
+
+        <p class="footnote">Generated letters are a starting point — always review before sending.</p>
     </div>
     <script src="app.js"></script>
 </body>

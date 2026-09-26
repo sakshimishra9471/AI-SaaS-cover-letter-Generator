@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
   --ink-bg: #1B2430;
+  --ink-bg-soft: #232E3D;
   --paper: #FBF9F4;
   --paper-line: #E4E0D5;
   --text: #232B3A;
@@ -12,6 +13,7 @@
   --stripe-red: #B23A48;
   --stripe-blue: #2C4A6E;
   --error: #B23A48;
+  --success: #3E6B4A;
 }
 
 * { box-sizing: border-box; }
@@ -19,7 +21,9 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--ink-bg);
+  background:
+    radial-gradient(circle at 15% 0%, var(--ink-bg-soft), transparent 55%),
+    var(--ink-bg);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text);
   display: flex;
@@ -29,15 +33,14 @@ body {
 
 .sheet {
   width: 100%;
-  max-width: 560px;
+  max-width: 600px;
   background: var(--paper);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 40px 44px 44px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.4), 0 2px 0 rgba(255, 255, 255, 0.4) inset;
   position: relative;
   overflow: hidden;
 }
-
 
 .sheet::before {
   content: "";
@@ -59,23 +62,71 @@ body {
   );
 }
 
+.sheet::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 46px;
+  height: 46px;
+  border: 2px dashed var(--paper-line);
+  border-radius: 4px;
+}
+
+.letterhead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.letterhead svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
 h1 {
   font-family: 'Source Serif 4', Georgia, serif;
   font-weight: 700;
-  font-size: 26px;
-  margin: 0 0 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--paper-line);
+  font-size: 28px;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.subtitle {
+  margin: 0 0 22px;
+  padding-bottom: 22px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  border-bottom: 1px dashed var(--paper-line);
+  max-width: 46ch;
+}
+
+.field {
+  margin: 0 0 18px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 label {
   display: block;
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-muted);
-  margin: 20px 0 6px;
+  margin: 0 0 7px;
 }
 
 input[type="text"],
@@ -84,11 +135,11 @@ textarea {
   font-family: inherit;
   font-size: 15px;
   color: var(--text);
-  padding: 10px 12px;
+  padding: 11px 13px;
   border: 1px solid var(--paper-line);
-  border-radius: 4px;
+  border-radius: 5px;
   background: #fff;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 input[type="text"]:focus,
@@ -99,13 +150,15 @@ textarea:focus {
 }
 
 textarea {
-  min-height: 64px;
+  min-height: 68px;
   resize: vertical;
+  line-height: 1.5;
 }
+
 .mode-toggle {
   display: flex;
-  gap: 8px;
-  margin-top: 22px;
+  gap: 10px;
+  margin: 4px 0 22px;
 }
 
 .mode-toggle label {
@@ -124,14 +177,23 @@ textarea {
 }
 
 .mode-toggle span {
-  display: block;
-  text-align: center;
-  padding: 10px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 10px;
   border: 1px solid var(--paper-line);
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 13.5px;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  background: #fff;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+}
+
+.mode-toggle span svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 .mode-toggle input[type="radio"]:checked + span {
@@ -141,65 +203,139 @@ textarea {
   font-weight: 600;
 }
 
+.mode-toggle label:active span {
+  transform: scale(0.98);
+}
+
 .mode-toggle input[type="radio"]:focus-visible + span {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
+.upload-field {
+  padding: 14px;
+  border: 1px dashed var(--paper-line);
+  border-radius: 6px;
+  background: rgba(156, 107, 31, 0.03);
+}
+
+.upload-field label {
+  margin-bottom: 10px;
+}
+
 input[type="file"] {
   display: block;
   width: 100%;
-  font-size: 13.5px;
-  padding: 8px 0;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+input[type="file"]::file-selector-button {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  margin-right: 12px;
+  border: 1px solid var(--paper-line);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--accent-strong);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent);
 }
 
 #resume-status {
-  font-size: 12.5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
   color: var(--text-muted);
-  margin-top: 6px;
+  margin-top: 8px;
   min-height: 16px;
 }
 
 button#generate-btn {
   width: 100%;
-  margin-top: 26px;
-  padding: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 14px;
   font-family: inherit;
   font-size: 14.5px;
   font-weight: 600;
+  letter-spacing: 0.01em;
   color: #fff;
-  background: var(--accent);
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-strong) 100%);
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background 0.15s, transform 0.05s;
+  box-shadow: 0 6px 16px rgba(122, 82, 22, 0.35);
+  transition: box-shadow 0.15s, transform 0.05s, opacity 0.15s;
 }
 
-button#generate-btn:hover:not(:disabled) { background: var(--accent-strong); }
+button#generate-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+button#generate-btn:hover:not(:disabled) {
+  box-shadow: 0 8px 20px rgba(122, 82, 22, 0.45);
+}
+
 button#generate-btn:active:not(:disabled) { transform: scale(0.99); }
-button#generate-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+button#generate-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 button#generate-btn:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
 
 #status-line {
-  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
   color: var(--text-muted);
   min-height: 18px;
-  margin: 12px 0 0;
+  margin: 14px 0 0;
   text-align: center;
 }
 
 #status-line.error { color: var(--error); }
 
+.output-block {
+  margin-top: 18px;
+}
+
+.output-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 7px;
+}
+
 #output {
-  margin-top: 8px;
-  padding: 20px;
+  padding: 24px 26px;
   border: 1px solid var(--paper-line);
-  border-radius: 4px;
-  min-height: 160px;
+  border-radius: 6px;
+  min-height: 180px;
   white-space: pre-wrap;
-  font-size: 14.5px;
-  line-height: 1.7;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.75;
   background: #fff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
+}
+
+#output:empty::before {
+  content: "Your generated letter will appear here.";
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-size: 13.5px;
+  color: var(--text-muted);
 }
 
 button#copy-btn {
@@ -211,16 +347,25 @@ button#copy-btn {
   color: var(--text);
   background: transparent;
   border: 1px solid var(--paper-line);
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
 
-button#copy-btn:hover { border-color: var(--accent); }
+button#copy-btn:hover { border-color: var(--accent); background: var(--accent-bg); }
 button#copy-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.footnote {
+  margin: 20px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
 
 @media (max-width: 480px) {
   .sheet { padding: 32px 24px 36px; }
-  h1 { font-size: 22px; }
+  .sheet::after { display: none; }
+  h1 { font-size: 23px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
   .mode-toggle { flex-direction: column; }
 }
