@@ -1,4 +1,4 @@
-const API_BASE="http://localhost:8787";
+const API_BASE="https://ai-saas-cover-letter-generator-1.onrender.com";
 
 
 const formData={
